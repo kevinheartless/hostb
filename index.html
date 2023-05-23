@@ -3,13 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content='width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes'>
-    <title>Unity WebGL Player | new_tes</title>
+    <title>Unity WebGL Player | Tunnel_AR</title>
     <link rel="stylesheet" href="TemplateData/style.css">
     <style>
          html{
             height: -webkit-fill-available;
         }
-
         body {
             margin: 0;
             padding: 0;
@@ -18,7 +17,6 @@
             width: 100vw;
             overflow: hidden;
         }
-
         .ctaDiv {
             display: flex;
             flex-direction: column;
@@ -33,11 +31,12 @@
             z-index: 99;
         }
     </style>
-
 </head>
 <body>
     <script src="app.js" type="text/javascript"></script>
     <!--IMAGETARGETS-->
+		<imagetarget id='Testing3' src='targets/Testing3.jpg'></imagetarget>
+
     <div id="startWebcamDiv" class="ctaDiv">
         <p style="text-align: center; width:60vw">This augmented reality experience requires access to your device's camera</p>
         <button id="startCameraBtn" onclick="StartCamera()" style="display:none">ALLOW ACCESS</button>
@@ -45,7 +44,6 @@
     <div id="startWebcamManuallyDiv" style="display: none" class="ctaDiv">
         <button onclick="StartCameraManually()" style="width:180px; height:40px; border:1px solid gray; border-radius:8px">START WEBCAM</button>
     </div>
-
     <div id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas" style="width: 100%; height: 100%; background: #0000; z-index: -99"></canvas>
         <div id="unity-loading-bar">
@@ -55,30 +53,27 @@
             </div>
         </div>
     </div>
-    <script src="Build/web_ar_no_sync.loader.js"></script>
+    <script src="Build/Host Test.loader.js"></script>
     <script>
             var container = document.querySelector("#unity-container");
             var canvas = document.querySelector("#unity-canvas");
             var loadingBar = document.querySelector("#unity-loading-bar");
             var progressBarFull = document.querySelector("#unity-progress-bar-full");
-
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
                 container.className = "unity-mobile";
             }
-
             function StartCamera() {
                 canvas.style.width = window.innerWidth + "px";
                 canvas.style.height = window.innerHeight + "px";
                 
                 document.getElementById("startWebcamDiv").style.display = "none";
-
                 createUnityInstance(document.querySelector("#unity-canvas"), {
-                    dataUrl: "Build/web_ar_no_sync.data",
-                    frameworkUrl: "Build/web_ar_no_sync.framework.js",
-                    codeUrl: "Build/web_ar_no_sync.wasm",
+                    dataUrl: "Build/Host Test.data",
+                    frameworkUrl: "Build/Host Test.framework.js",
+                    codeUrl: "Build/Host Test.wasm",
                     streamingAssetsUrl: "StreamingAssets",
                     companyName: "DefaultCompany",
-                    productName: "new_tes",
+                    productName: "Tunnel_AR",
                     productVersion: "0.1",
                     //webglContextAttributes: { "preserveDrawingBuffer": true },
                     // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
@@ -91,7 +86,6 @@
                     window.gameInstance = unityInstance;
                     window.unityInstance = unityInstance;
                     window.iTracker.startWebcam();
-
                     //[FIX]: some browsers (such as Wechat) does not allow webcam autoplay so we need to start the webcam manually via new button press
                     window.waitForVideo = () => {
                         setTimeout(() => {
@@ -104,18 +98,14 @@
                         }, 2500)
                     };
                     window.waitForVideo();
-
                     loadingBar.style.display = "none";
                 });
-
                 loadingBar.style.display = "block";
             }
-
             function StartCameraManually() {
                 document.getElementById("startWebcamManuallyDiv").style.display = "none";
                 iTracker.VIDEO.play()
             }
-
     </script>
 </body>
 </html>
